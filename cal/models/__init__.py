@@ -1,0 +1,1 @@
+from cal.models.booking import Booking
