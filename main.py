@@ -4,7 +4,6 @@ from datetime import datetime
 
 cal = CalSDK(api_key="")
 
-
 ## Example usage of the BookingAPI to create a new booking
 
 # new_booking = cal.bookings.create(
@@ -22,13 +21,15 @@ cal = CalSDK(api_key="")
 #     lengthInMinutes=30,
 # )
 
-## Get a booking by UID
-# booking = cal.bookings.get("")
+# #Get a booking by UID
+# booking = cal.bookings.get("nKJmqU9stG8dJQdSUmeVE8")
+# print(booking)
 
 ## Get all bookings
-# bookings = cal.bookings.list(
-#     status="cancelled"
-# )
+bookings = cal.bookings.list(
+    status="cancelled"
+)
+print(bookings)
 
 # # Refresh API Keys
 # keys = cal.api_keys.refresh(
@@ -52,9 +53,15 @@ cal = CalSDK(api_key="")
 # )
 
 ## Cancel a booking
-cancelled_booking = cal.bookings.cancel(
-    bookingUid="",
-    cancellationReason="Personal reasons",
-    cancelSubsequentBookings=False
-)
-print(cancelled_booking)
+# cancelled_booking = cal.bookings.cancel(
+#     bookingUid="",
+#     cancellationReason="Personal reasons",
+#     cancelSubsequentBookings=False
+# )
+
+## Calendar Links
+# calendar_links = cal.bookings.add_to_calendar_links(bookingUid="nKJmqU9stG8dJQdSUmeVE8")
+
+# for link in calendar_links:
+#     print(f"Label: {link.label}, Link: {link.link}")
+

@@ -76,3 +76,14 @@ class BookingTranscript(BaseModel):
     id: str
     data: str
     status: str
+
+class CalendarLink(BaseModel):
+    label: str
+    link: str
+
+
+class Reference(BaseModel):
+    type: str
+    eventUid: str
+    destinationCalendarId: str
+    id: str
