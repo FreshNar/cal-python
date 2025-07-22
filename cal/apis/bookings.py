@@ -1,6 +1,6 @@
 from typing import Optional, List, Union
 
-from cal.client import serialize_to_csv, remove_empty_values
+from cal.utils import serialize_to_csv, remove_empty_values
 from cal.models.booking import *
 from cal.routes import Routes
 
