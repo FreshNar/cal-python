@@ -2,7 +2,7 @@ import json
 from cal import CalSDK
 from datetime import datetime
 
-cal = CalSDK(api_key="")
+cal = CalSDK(api_key="cal_live_2c6cac0300a72fdf01637cb680187ed3")
 
 ## Example usage of the BookingAPI to create a new booking
 
