@@ -1,6 +1,6 @@
 from typing import Optional, List
 from pydantic import BaseModel
-from models.booking import Host, Attendee
+from cal.models.booking import Host, Attendee
 
 class UnifiedCalendar(BaseModel):
     start: str

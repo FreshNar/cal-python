@@ -14,12 +14,13 @@ class BookingAPI:
 
     def __init__(self, client):
         self.client = client
+        self.routes = Routes()
 
     def get(self, bookingUid: str):
         """
         Retrieve a booking by its UID.
         """
-        response = self.client._request("GET", Routes.booking.get(bookingUid))
+        response = self.client._request("GET", self.routes.booking.get(bookingUid))
         return Booking.model_validate(response)
 
     def list(
@@ -55,7 +56,7 @@ class BookingAPI:
             if k not in {"self"}
         }
 
-        response = self.client._request("GET", Routes.booking.list(), params=remove_empty_values(raw_params))
+        response = self.client._request("GET", self.routes.booking.list(), params=remove_empty_values(raw_params))
 
         if isinstance(response, list):
             return [Booking.model_validate(booking) for booking in response]
@@ -115,21 +116,21 @@ class BookingAPI:
             "lengthInMinutes": lengthInMinutes
         }
 
-        response = self.client._request("POST", Routes.booking.create(), json=remove_empty_values(data))
+        response = self.client._request("POST", self.routes.booking.create(), json=remove_empty_values(data))
         return Booking.model_validate(response)
     
     def get_recordings(self, bookingUid: str):
         """
         Retrieve recordings for a booking by its UID.
         """
-        response = self.client._request("GET", Routes.booking.get_recordings(bookingUid))
+        response = self.client._request("GET", self.routes.booking.get_recordings(bookingUid))
         return BookingRecording.model_validate(response)
     
     def get_transcript(self, bookingUid: str):
         """
         Retrieve the transcript for a booking by its UID.
         """ 
-        response = self.client._request("GET", Routes.booking.get_transcript(bookingUid))
+        response = self.client._request("GET", self.routes.booking.get_transcript(bookingUid))
         return BookingTranscript.model_validate(response) if response else None
     
     def reschedule(
@@ -151,7 +152,7 @@ class BookingAPI:
             "reschedulingReason": reschedulingReason
         }
 
-        response = self.client._request("POST", Routes.booking.reschedule(bookingUid), json=remove_empty_values(data))
+        response = self.client._request("POST", self.routes.booking.reschedule(bookingUid), json=remove_empty_values(data))
         return Booking.model_validate(response)
     
     def cancel(
@@ -170,7 +171,7 @@ class BookingAPI:
             "seatUid": seatUid
         }
 
-        response = self.client._request("POST", Routes.booking.cancel(bookingUid), json=remove_empty_values(data))
+        response = self.client._request("POST", self.routes.booking.cancel(bookingUid), json=remove_empty_values(data))
         return Booking.model_validate(response)
     
     def mark_absent(
@@ -187,7 +188,7 @@ class BookingAPI:
             "attendees": attendees
         }
 
-        response = self.client._request("POST", Routes.booking.mark_absent(bookingUid), json=data)
+        response = self.client._request("POST", self.routes.booking.mark_absent(bookingUid), json=data)
         return Booking.model_validate(response)
     
     def reassign_auto(
@@ -198,7 +199,7 @@ class BookingAPI:
         Reassign a booking automatically to a different host.
 
         """
-        response = self.client._request("POST", Routes.booking.reassign_auto(bookingUid))
+        response = self.client._request("POST", self.routes.booking.reassign_auto(bookingUid))
         return response
 
     def reassign_specific(
@@ -215,7 +216,7 @@ class BookingAPI:
             "userId": userId
         }
 
-        response = self.client._request("POST", Routes.booking.reassign_specific(bookingUid, userId), json=data)
+        response = self.client._request("POST", self.routes.booking.reassign_specific(bookingUid, userId), json=data)
         return Booking.model_validate(response)
     
     def confirm(
@@ -226,7 +227,7 @@ class BookingAPI:
         Confirm a booking by its UID.
         """
 
-        response = self.client._request("POST", Routes.booking.confirm(bookingUid))
+        response = self.client._request("POST", self.routes.booking.confirm(bookingUid))
         return response
     
     def decline(
@@ -242,7 +243,7 @@ class BookingAPI:
             "reason": reason
         }
 
-        response = self.client._request("POST", Routes.booking.decline(bookingUid), json=data)
+        response = self.client._request("POST", self.routes.booking.decline(bookingUid), json=data)
         return response
     
     def add_to_calendar_links(
@@ -253,7 +254,7 @@ class BookingAPI:
         Retrieve add to calendar links for a booking.
         """
 
-        response = self.client._request("GET", Routes.booking.add_to_calendar_links(bookingUid))
+        response = self.client._request("GET", self.routes.booking.add_to_calendar_links(bookingUid))
         return [CalendarLink.model_validate(link) for link in response] if isinstance(response, list) else CalendarLink.model_validate(response)
     
     def references(
@@ -268,6 +269,6 @@ class BookingAPI:
             "type": type
         }
 
-        response = self.client._request("GET", Routes.booking.references(bookingUid), params=data)
+        response = self.client._request("GET", self.routes.booking.references(bookingUid), params=data)
         return [Reference.model_validate(ref) for ref in response] if isinstance(response, list) else Reference.model_validate(response)
     

@@ -1,4 +1,4 @@
-from cal.urls import *
+from cal.urls.booking import BOOKING_ROUTES
 
 class BookingRoutes:
     """ 
@@ -47,17 +47,3 @@ class BookingRoutes:
 
     @staticmethod
     def references(bookingUid): return BOOKING_ROUTES["references"].format(bookingUid)
-
-class UnifiedCalendarRoutes:
-    """
-    A class to manage unified calendar routes.
-    This class provides methods to build URLs for unified calendar-related API endpoints.
-    """
-
-    @staticmethod
-    def get(calendar, eventUid): 
-        return UNIFIED_CALENDAR_ROUTES["get"].format(calendar=calendar, eventUid=eventUid)
-
-class Routes:
-    booking = BookingRoutes
-    unified_calendar = UnifiedCalendarRoutes

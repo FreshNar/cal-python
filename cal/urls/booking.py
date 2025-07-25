@@ -14,7 +14,3 @@ BOOKING_ROUTES = {
     "add_to_calendar_links": "/bookings/{bookingUid}/calendar-links",
     "references" : "/bookings/{bookingUid}/references"
 }
-
-UNIFIED_CALENDAR_ROUTES = {
-    "get": "/calendars/{calendar}/event/{eventUid}",
-}

@@ -2,9 +2,21 @@ import json
 from cal import CalSDK
 from datetime import datetime
 
-cal = CalSDK(api_key="cal_live_2c6cac0300a72fdf01637cb680187ed3")
+cal = CalSDK(api_key="")
 
 ## Example usage of the BookingAPI to create a new booking
+
+## Get event types
+event_types = cal.event_types.list(
+    username="test",
+)
+
+print("Event Types:")
+for event_type in event_types:
+    print(f"ID: {event_type.id}, Name: {event_type.title}, Length: {event_type.lengthInMinutes} minutes")
+
+# for event_type in event_types:
+#     print(event_type)
 
 # new_booking = cal.bookings.create(
 #     start=datetime(2025, 7, 30, 16, 0),
@@ -26,10 +38,10 @@ cal = CalSDK(api_key="cal_live_2c6cac0300a72fdf01637cb680187ed3")
 # print(booking)
 
 ## Get all bookings
-bookings = cal.bookings.list(
-    status="cancelled"
-)
-print(bookings)
+# bookings = cal.bookings.list(
+#     status="cancelled"
+# )
+# print(bookings)
 
 # # Refresh API Keys
 # keys = cal.api_keys.refresh(
