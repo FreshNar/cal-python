@@ -45,3 +45,12 @@ class EventType(BaseModel):
     hideOrganizerEmail: Optional[bool] = None
     calVideoSettings: Optional[dict] = None
 
+class EventTypeWebhook(BaseModel):
+    payloadTemplate: Optional[str] = None
+    eventTypeId: int
+    id: str
+    triggers: List[str]
+    subscriberUrl: str
+    active: bool
+    secret: Optional[str] = None
+    

@@ -1,7 +1,7 @@
 from typing import Optional, List, Union
 
 from cal.utils import serialize_to_csv, remove_empty_values
-from cal.models.event_type import EventType
+from cal.models.event_type import EventType, EventTypeWebhook
 from cal.routes import Routes
 
 api_version = "2024-06-14"
@@ -14,6 +14,13 @@ class EventTypeAPI:
     def __init__(self, client):
         self.client = client
         self.routes = Routes()
+
+    def get(self, eventTypeId: int):
+        if not eventTypeId:
+            raise ValueError("eventTypeId is required.")
+
+        response = self.client._request("GET", self.routes.event_type.get(eventTypeId=eventTypeId), api_version=api_version)
+        return EventType.model_validate(response)
 
     def list(
             self,
@@ -97,17 +104,89 @@ class EventTypeAPI:
 
         return EventType.model_validate(response)
 
-
-    def get(self, eventTypeId: int):
-        if not eventTypeId:
-            raise ValueError("eventTypeId is required.")
-
-        response = self.client._request("GET", self.routes.event_type.get(eventTypeId=eventTypeId), api_version=api_version)
-        return EventType.model_validate(response)
     
     def delete(self, eventTypeId: int):
         if not eventTypeId:
             raise ValueError("eventTypeId is required.")
 
         response = self.client._request("DELETE", self.routes.event_type.delete(eventTypeId=eventTypeId), api_version=api_version)
+        return response
+    
+    def get_webhook(self, eventTypeId: int, webhookId: int):
+        if not eventTypeId or not webhookId:
+            raise ValueError("Both eventTypeId and webhookId are required.")
+
+        response = self.client._request("GET", self.routes.event_type.get_webhook(eventTypeId=eventTypeId, webhookId=webhookId), api_version=api_version)
+        return EventTypeWebhook.model_validate(response)
+
+    def list_webhooks(self, eventTypeId: int):
+        if not eventTypeId:
+            raise ValueError("eventTypeId is required.")
+
+        response = self.client._request("GET", self.routes.event_type.list_webhooks(eventTypeId=eventTypeId), api_version=api_version)
+        return response
+    
+    def create_webhook(
+        self,
+        eventTypeId: int,
+        active: bool,
+        subscriberUrl: str,
+        triggers: List[str],
+        payloadTemplate: Optional[str] = None,
+        secret: Optional[str] = None,
+    ):
+        if not subscriberUrl or not triggers:
+            raise ValueError("subscriberUrl and triggers are required.")
+
+        payload = {
+            "active": active,
+            "subscriberUrl": subscriberUrl,
+            "triggers": triggers,
+            "payloadTemplate": payloadTemplate,
+            "secret": secret
+        }
+
+        response = self.client._request(
+            "POST",
+            self.routes.event_type.create_webhook(eventTypeId=eventTypeId),
+            api_version=api_version,
+            json=remove_empty_values(payload)
+        )
+
+        return EventTypeWebhook.model_validate(response)
+    
+    def update_webhook(self, eventTypeId: int, webhookId: int, **kwargs):
+        if not eventTypeId or not webhookId:
+            raise ValueError("Both eventTypeId and webhookId are required.")
+
+        payload = remove_empty_values(kwargs)
+
+        response = self.client._request(
+            "PATCH",
+            self.routes.event_type.update_webhook(eventTypeId=eventTypeId, webhookId=webhookId),
+            api_version=api_version,
+            json=payload
+        )
+        return EventTypeWebhook.model_validate(response)
+    
+    def delete_webhook(self, eventTypeId: int, webhookId: int):
+        if not eventTypeId or not webhookId:
+            raise ValueError("Both eventTypeId and webhookId are required.")
+
+        response = self.client._request(
+            "DELETE",
+            self.routes.event_type.delete_webhook(eventTypeId=eventTypeId, webhookId=webhookId),
+            api_version=api_version
+        )
+        return response
+
+    def delete_all_webhooks(self, eventTypeId: int):
+        if not eventTypeId:
+            raise ValueError("eventTypeId is required.")
+
+        response = self.client._request(
+            "DELETE",
+            self.routes.event_type.delete_all_webhooks(eventTypeId=eventTypeId),
+            api_version=api_version
+        )
         return response

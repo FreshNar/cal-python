@@ -60,6 +60,42 @@ cal = CalSDK(api_key="")
 # for event_type in event_types:
 #     print(event_type)
 
+## Get all webhooks for an event type
+# webhooks = cal.event_types.list_webhooks(eventTypeId=1893785)
+
+# print("Webhooks for Event Type:")
+# for webhook in webhooks:
+#     print(f"ID: {webhook.id}, URL: {webhook.url}, Event Type ID: {webhook.eventTypeId}")
+
+## Create a webhook for an event type
+# new_webhook = cal.event_types.create_webhook(
+#     eventTypeId=1893785,
+#     active=False,
+#     subscriberUrl="https://example.com/webhook",
+#     triggers=["BOOKING_CREATED"],
+# )
+
+# get_webhook = cal.event_types.get_webhook(
+#     eventTypeId=1893785,
+#     webhookId=new_webhook.id
+# )
+
+# print(f"Webhook Created: ID: {get_webhook.id}, URL: {get_webhook.subscriberUrl}, Event Type ID: {get_webhook.eventTypeId}")
+
+# # Update a webhook for an event type
+# updated_webhook = cal.event_types.update_webhook(
+#     eventTypeId=1893785,
+#     webhookId=new_webhook.id,
+#     active=True,
+# )
+# print(f"Webhook Updated: ID: {updated_webhook.id}, URL: {updated_webhook.subscriberUrl}, Event Type ID: {updated_webhook.eventTypeId}")
+
+# print(f"Webhook Created: ID: {new_webhook.id}, URL: {new_webhook.subscriberUrl}, Event Type ID: {new_webhook.eventTypeId}")
+
+# ## Delete all webhooks for an event type
+# delete_webhooks = cal.event_types.delete_all_webhooks(eventTypeId=1893785)
+
+# print(f"All Webhooks Deleted for Event Type ID: {delete_webhooks}")
 # new_booking = cal.bookings.create(
 #     start=datetime(2025, 7, 30, 16, 0),
 #     attendeeName="John Doe",
