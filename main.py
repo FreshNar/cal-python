@@ -6,14 +6,56 @@ cal = CalSDK(api_key="")
 
 ## Example usage of the BookingAPI to create a new booking
 
-## Get event types
-event_types = cal.event_types.list(
-    username="test",
-)
+# ## Get event types
+# event_types = cal.event_types.list(
+#     username='flipwedge'
+# )
 
-print("Event Types:")
-for event_type in event_types:
-    print(f"ID: {event_type.id}, Name: {event_type.title}, Length: {event_type.lengthInMinutes} minutes")
+# print("Event Types:")
+# for event_type in event_types:
+#     print(f"ID: {event_type.id}, Name: {event_type.title}, Length: {event_type.lengthInMinutes} minutes")
+
+# Create a new event type
+# new_event_type = cal.event_types.create(
+#     lengthInMinutes=30,
+#     title="Practice Session",
+#     slug="practice-session",
+#     description="A session for practice and skill development.",
+#     lengthInMinutesOptions=[30, 60, 90],
+#     bookingFields=[
+#         {
+#             "name": "booking_desire",
+#             "slug" : "booking_desire",
+#             "type": "text",
+#             "required": True,
+#             "label": "What would you like to achieve in this session?"
+#         }
+#     ],
+#     bookingLimitsCount={
+#         "day": 1,
+#     }
+# )
+
+# ## Get an event type by ID
+# event_type = cal.event_types.get(eventTypeId=new_event_type.id)
+# print(f"Event Type ID: {event_type.id}, Title: {event_type.title}, Length: {event_type.lengthInMinutes} minutes")
+
+## Delete the event type
+# delete_event = cal.event_types.delete(eventTypeId=)
+
+# print(f"Event Type Deleted: {delete_event}")
+
+## Update an event type
+# updated_event_type = cal.event_types.update(
+#     event_id=2936109,
+#     title="Updated Again Practice Session",
+#     description="An updated session for practice and skill development.",
+#     lengthInMinutes=45,
+# ) 
+
+# print(f"Event Type Deleted: {delete}")
+
+# print(f"New Event Type Created: ID: {new_event_type.id}, Title: {new_event_type.title}")
 
 # for event_type in event_types:
 #     print(event_type)

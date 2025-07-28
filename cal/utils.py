@@ -1,6 +1,6 @@
 def serialize_to_csv(value):
     if isinstance(value, list):
-        return ",".join(value)
+        return ",".join(str(v) for v in value)
     return value
 
 def remove_empty_values(data):
