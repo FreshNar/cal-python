@@ -12,6 +12,7 @@ class CalClient:
         self.session.headers.update({
             "cal-api-version": cal_api_version,
             "Authorization": f"{self.api_key}",
+            "Content-Type": "application/json",
         })
 
     def _request(self, method, endpoint, api_version=None, **kwargs):

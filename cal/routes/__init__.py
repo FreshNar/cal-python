@@ -1,6 +1,7 @@
 from cal.routes.unified_calendar import UnifiedCalendarRoutes
 from cal.routes.booking import BookingRoutes
 from cal.routes.event_type import EventTypeRoutes
+from cal.routes.me import MeRoutes
 
 class Routes:
     """
@@ -12,3 +13,4 @@ class Routes:
         self.booking = BookingRoutes()
         self.unified_calendar = UnifiedCalendarRoutes()
         self.event_type = EventTypeRoutes()
+        self.me = MeRoutes()

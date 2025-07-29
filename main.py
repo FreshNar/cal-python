@@ -6,6 +6,16 @@ cal = CalSDK(api_key="")
 
 ## Example usage of the BookingAPI to create a new booking
 
+## Get my profile
+# my_profile = cal.me.get()
+# print(f"User ID: {my_profile.id}, Name: {my_profile.username}, Email: {my_profile.email}, Organization: {my_profile.organization}")
+
+## Update my profile
+# updated_profile = cal.me.update(
+#     bio="Flipwedge"
+# )
+# print(f"Updated Profile Bio: {updated_profile}")
+
 # ## Get event types
 # event_types = cal.event_types.list(
 #     username='flipwedge'
